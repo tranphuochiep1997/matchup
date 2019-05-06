@@ -6,13 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
-  <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="form.css">
   <title>Matchup</title>
 </head>
 
 <body>
+  <?php  include('header.php'); ?>
+  <div class="container">
   <div class="form-create-match-wrapper">
-
+    
     <span class="title">Create new match</span>
     <span class="sub-title">Please provide some information</span>
     <form action="action.php" method="post">
@@ -36,6 +38,8 @@
       <input class="btn" type="submit" value="Submit" />
     </form>
   </div>
+  </div>
+  
 </body>
 
 </html>

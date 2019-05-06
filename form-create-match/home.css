@@ -1,0 +1,50 @@
+  /*----------------- CSS FOR HOME PAFE ---------------------*/
+  table {
+    border-collapse:collapse;
+    border-bottom:1px solid gray;
+    font-family: Tahoma,Verdana,Segoe,sans-serif;
+    width:72%;
+  }
+  
+  .matches {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .matches td, .matches th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .matches tr:nth-child(even){background-color: #f2f2f2;}
+  .left-panel .matches tr {
+    background-color: white;
+  }
+  
+  .matches tr:hover {background-color: #ddd;}
+  
+  .matches th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .column1 {
+    float: left;
+    width: 65%;
+    padding: 10px;
+  }
+  .column2 {
+    float: left;
+    width: 30%;
+    padding: 10px;
+  }
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
