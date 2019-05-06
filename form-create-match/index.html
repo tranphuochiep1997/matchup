@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Matchup</title>
+</head>
+<body>
+  <form action='action.php' method='post'>
+    <label for='inputTitle'>Title</label><br>
+    <input type='text' id='inputTitle' name='title' required /><br>
+
+    <label for='inputKind'>Kind</label><br>
+    <input type='radio' id='inputKind' name='kind' value='5' checked/>5<br>
+    <input type='radio' id='inputKind' name='kind' value='7' />7<br>
+    <input type='radio' id='inputKind' name='kind' value='11' />11<br>
+
+    <label for='inputStartTime'>Start time</label><br>
+    <input type='datetime-local' id='inputStartTime' name='startTime' required /><br><br>
+
+    <input type='submit' value='Submit' />
+  </form>
+</body>
+</html>
