@@ -9,6 +9,11 @@ ul.info-match {
     list-style-type: circle;
   }
 
+ul.info-match .add-new {
+    list-style-type: none;
+    color: transparent;
+}
+
 .team-title {
     width: 40%;
     float: left;
@@ -50,6 +55,9 @@ ul.info-match {
 .btn:hover {
     background: #5F9EA0;
 }
+.btn-selected {
+    background: #5F9EA0 !important;
+}
 
 .btn-confirm {
     font-size: 15px;
@@ -64,6 +72,7 @@ ul.info-match {
 .input-group {
     margin: 10px 0px 10px 0px;
 }
+
 
 .match-detail .column1 {
     float: left;

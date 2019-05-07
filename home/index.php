@@ -7,6 +7,11 @@
   <title>HOME</title>
   <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="index.css">
+  <script type="text/javascript">
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+   </script>
 </head>
 <body>
 

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Detail</title>
   <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="index.css">
-  <title>Detail</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="team-left"  style="border:none">
                         <div class="input-group">
-                            <button class="btn" type="submit" name="join" >Join</button>
+                            <button id="join" class="btn btn-join btn-join-left" type="submit" name="join" >Join</button>
                         </div>
                     </div>
                 </div>
@@ -52,18 +52,18 @@
 
                     <div class="team-left" style="border:none">
                         <div class="input-group">
-                            <button class="btn" type="submit" name="join" >Join</button>
+                            <button id="join" class="btn btn-join btn-join-right" type="submit" name="join" >Join</button>
                         </div>
                     </div>
 
                 </div>
 
                 <hr>
-
-                <div class="input-group">
-                    <button class="btn-confirm" type="submit" name="confirm" >Confirm</button>
-                </div>
-                
+                <form method="post" action="action.php">
+                    <div class="input-group">
+                        <button class="btn-confirm" type="submit" value="Submit" >Confirm</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="column2">
@@ -80,5 +80,6 @@
   </div>
   
 </body>
+<script type="text/javascript" src="index.js"></script>
 
 </html>
