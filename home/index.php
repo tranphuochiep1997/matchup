@@ -49,8 +49,7 @@
                                     echo "<td>" . $row['kind']      . "</td>";
                                     echo "<td>" . $row['loc']       . "</td>";
                                     echo "<td>";
-                                        // echo "<a href='detail.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'>Detail</a>";
-                                        echo "<a href='/matchup/match_detail/' title='View Record' data-toggle='tooltip'>Detail</a>";
+                                        echo "<a href='/matchup/match_detail/index.php?id=". $row['match_id'] ."' title='View Record' data-toggle='tooltip'>Detail</a>";
                                     echo "</td>";
                                 echo "</tr>";
                             }
