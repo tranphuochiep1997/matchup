@@ -90,4 +90,17 @@ hr {
     border: 0 none;
     }
 
+.message-success {
+    color: green;
+    font-weight: 600;
+    padding: 7px 0;
+}
+
+.message-error {
+    color: red;
+    font-weight: 600;
+    padding: 7px 0;
+}
+
+
   
