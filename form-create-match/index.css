@@ -1,20 +1,11 @@
-.form-create-match-wrapper {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.form-create-match-wrapper .title {
+.title {
   font-size: 30px;
   font-weight: bold;
+  display: block;
 }
 
-.form-create-match-wrapper .sub-title {
+.sub-title {
   font-style: italic;
-}
-
-form {
-  width: 500px;
 }
 
 input[type=text], input[type=datetime-local] {

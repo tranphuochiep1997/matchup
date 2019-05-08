@@ -4,6 +4,14 @@ COLLATE utf8mb4_unicode_ci;
 
 use matchup;
 
+create table player
+(
+player_id varchar(20) primary key not null,
+password varchar(20) not null,
+name varchar(50),
+elo int not null default 100
+);
+
 CREATE TABLE matches
 (
   match_id int NOT NULL AUTO_INCREMENT,
@@ -14,15 +22,9 @@ CREATE TABLE matches
   scoreB int default 0,
   status int default 0,
   loc varchar(255),
+  player_id varchar(20),
+  foreign key(player_id) references player(player_id),
   PRIMARY KEY (match_id)
-);
-
-create table player
-(
-player_id varchar(20) primary key not null,
-password varchar(20) not null,
-name varchar(50),
-elo int not null default 100
 );
 
 create table detail (

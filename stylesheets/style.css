@@ -24,6 +24,7 @@ html, body {
   border: 1px solid transparent;
   border-radius: .25rem;
   padding: .375rem .75rem;
+  cursor: pointer !important;
 }
 
 .fixed-header, .fixed-footer{
@@ -79,4 +80,22 @@ nav a:hover {
   .container {
     width: 100%;
   }
+}
+
+.card {
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
+
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-body {
+  padding: 1.25rem;
 }
