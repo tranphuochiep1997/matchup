@@ -55,3 +55,28 @@ nav a:hover {
   margin: 0 auto;
   margin-top: 60px;
 }
+
+.column1 {
+  float: left;
+  width: 65%;
+  padding: 10px;
+}
+.column2 {
+  float: left;
+  width: 30%;
+  padding: 10px;
+}
+.row {
+  width: 100%;
+}
+@media screen and (max-width: 800px) {
+  .column1 {
+    width: 100%;
+  }
+  .column2 {
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+  }
+}
