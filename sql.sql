@@ -39,9 +39,9 @@ CREATE TABLE matches
     primary key(player_id, match_id)
 );
 
-    insert into player(player_id,password,name,elo) values ('vntdinh', '123', 'ThienDinh', 100);
-    insert into player(player_id,password,name,elo) values ('htran', '123', 'HiepTran', 100);
+    insert into player(player_id,password,name,elo) values ('vntdinh', '123', 'Thien Dinh', 100);
+    insert into player(player_id,password,name,elo) values ('htran', '123', 'Hiep Tran', 100);
     INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB)
     VALUES ('1', 'Friendly', Now(), 'Chi Lang', 5, 0, 0, 0);
-    insert into detail (team,player_id,match_id) values( 1', 'vntdinh', '1');
+    insert into detail (team,player_id,match_id) values( '1', 'vntdinh', '1');
 
