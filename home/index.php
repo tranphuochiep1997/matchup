@@ -81,16 +81,14 @@
                         echo "<table class='matches'>";
                             echo "<thead>";
                                 echo "<tr>";
-                                    echo "<th>Team 1</th>";
-                                    echo "<th>Score</th>";
-                                    echo "<th>Team 2</th>";
+                                    echo "<th>Match</th>";
+                                    echo "<th>Time</th>";
                                 echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<tr>";
                                     echo "<td>" . $row['match_id']  . "</td>";
-                                    echo "<td>" . $row['title']     . "</td>";
                                     echo "<td>" . $row['startTime'] . "</td>";
                                 echo "</tr>";
                             }

@@ -42,8 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $team = $_POST["idTeam"];
     $match_id = $_GET["id"];
 
-    $sql = "INSERT INTO detail(team, player_id, match_id) VALUES
-    ('$team', 'htran', '$match_id')";
+    $sql = "INSERT INTO detail(team, player_id, match_id) VALUES('$team', 'htran', '$match_id')";
 
     if (mysqli_query($link, $sql)) {
         $message='<div class="message-success">Welcome to the match. Kindly Enjoy it</div>';
@@ -133,12 +132,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <h3>Match Info</h3>
             <div class="info-form">
                 <ul class="info-match">
-                    <li>Match Code: <?php echo $row["match_id"]; ?></li>
-                    <li>Title: <?php echo $row["title"]; ?></li>
-                    <li>Start Time: <?php echo $row["startTime"]; ?></li>
-                    <li>Type: <?php echo $row["kind"]; ?></li>
-                    <li>Status: <?php echo $row["status"]; ?></li>
-                    <li>Location: <?php echo $row["loc"]; ?></li>
+                    <li>Match Code: <?php echo $match_id; ?></li>
+                    <li>Title: <?php echo $title; ?></li>
+                    <li>Start Time: <?php echo $startTime; ?></li>
+                    <li>Type: <?php echo $kind; ?></li>
+                    <li>Status: <?php echo $status; ?></li>
+                    <li>Location: <?php echo $loc; ?></li>
                 </ul>
             </div>
         </div>
