@@ -43,7 +43,7 @@
                             echo "<tbody>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<tr>";
-                                    echo "<td>" . $row['id']        . "</td>";
+                                    echo "<td>" . $row['match_id']        . "</td>";
                                     echo "<td>" . $row['title']     . "</td>";
                                     echo "<td>" . $row['startTime'] . "</td>";
                                     echo "<td>" . $row['kind']      . "</td>";
@@ -90,7 +90,7 @@
                             echo "<tbody>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<tr>";
-                                    echo "<td>" . $row['id']        . "</td>";
+                                    echo "<td>" . $row['match_id']        . "</td>";
                                     echo "<td>" . $row['title']     . "</td>";
                                     echo "<td>" . $row['startTime'] . "</td>";
                                 echo "</tr>";
