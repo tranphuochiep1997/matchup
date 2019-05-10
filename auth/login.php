@@ -1,9 +1,9 @@
-<?php include('server.php') ?>
+<?php include('server.php') ?> 
 <?php
-	if(isset($_COOKIE["player_id"]))
-	{
- 		header("location:/matchup/home");
-	}
+	// if(isset($_COOKIE["player_id"]))
+	// {
+ 	// 	header("location:/matchup/home");
+	// }
 ?>
 <!DOCTYPE html>
 <html>

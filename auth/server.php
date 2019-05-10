@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 // initializing variables
 $player_id = "";
@@ -8,15 +8,15 @@ $elo = 100;
 $errors = array(); 
 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'matchup');
+require_once "../dbConfig.php";
 
 // REGISTER PLAYER
 if (isset($_POST['player_register'])) {
   // receive all input values from the form
-  $player_id = mysqli_real_escape_string($db, $_POST['player_id']);
-  $name = mysqli_real_escape_string($db, $_POST['name']);
-  $password = mysqli_real_escape_string($db, $_POST['password']);
-  $password_confirm = mysqli_real_escape_string($db, $_POST['password_confirm']);
+  $player_id = mysqli_real_escape_string($link, $_POST['player_id']);
+  $name = mysqli_real_escape_string($link, $_POST['name']);
+  $password = mysqli_real_escape_string($link, $_POST['password']);
+  $password_confirm = mysqli_real_escape_string($link, $_POST['password_confirm']);
 
   // form validation: ensure that the form is correctly filled ...
   // by adding (array_push()) corresponding error unto $errors array
@@ -30,7 +30,7 @@ if (isset($_POST['player_register'])) {
   // first check the database to make sure 
   // a player does not already exist with the same player
   $user_check_query = "SELECT * FROM player WHERE player_id='$player_id' LIMIT 1";
-  $result = mysqli_query($db, $user_check_query);
+  $result = mysqli_query($link, $user_check_query);
   $player = mysqli_fetch_assoc($result);
   
   if ($player) { // if player exists
@@ -43,17 +43,15 @@ if (isset($_POST['player_register'])) {
   if (count($errors) == 0) {
   	$query = "INSERT INTO player (player_id, name, password,elo) 
   			  VALUES('$player_id', '$name', '$password', $elo)";
-  	mysqli_query($db, $query);
-  	$_SESSION['player_id'] = $player_id;
-  	$_SESSION['success'] = "You are now logged in";
-    setcookie("player_id", $player_id, time()+3600);
+  	mysqli_query($link, $query);
+    setcookie("player_id", $player_id, time()+3600*24*7,"/");
   	header('location: /matchup/home/');
   }
 }
 //Login player
 if (isset($_POST['login_player'])) {
-  $player_id = mysqli_real_escape_string($db, $_POST['player_id']);
-  $password = mysqli_real_escape_string($db, $_POST['password']);
+  $player_id = mysqli_real_escape_string($link, $_POST['player_id']);
+  $password = mysqli_real_escape_string($link, $_POST['password']);
 
   if (empty($player_id)) {
     array_push($errors, "Username is required");
@@ -64,13 +62,11 @@ if (isset($_POST['login_player'])) {
 
   if (count($errors) == 0) {
     $query = "SELECT * FROM player WHERE player_id='$player_id' AND password='$password'";
-    $results = mysqli_query($db, $query);
+    $results = mysqli_query($link, $query);
     if (mysqli_num_rows($results) == 1) {
-      $_SESSION['player_id'] = $player_id;
-      $_SESSION['success'] = "You are now logged in";
+      setcookie("player_id", $player_id, time() + (3600*24*7), "/");
       header('location: /matchup/home/');
-      setcookie("player_id", $player_id, time()+3600);
-    }else {
+    } else {
       array_push($errors, "Wrong username/password");
     }
   }
