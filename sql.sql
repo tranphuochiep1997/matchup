@@ -1,7 +1,5 @@
 drop database matchup;
-CREATE DATABASE matchup
-CHARACTER
-SET utf8mb4
+CREATE DATABASE matchup CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
 use matchup;
@@ -25,7 +23,6 @@ CREATE TABLE matches
   status int default 0,
   loc varchar (255),
   player_id varchar (20),
-  foreign key (player_id) references player (player_id),
   primary key (match_id)
 );
 
@@ -35,7 +32,7 @@ CREATE TABLE matches
     player_id varchar(20) unique,
     foreign key (player_id) references player (player_id),
     match_id int,
-    foreign key (match_id) references matches (match_id),
+    foreign key (match_id) references matches (match_id) on delete cascade,
     primary key(player_id, match_id)
 );
 
@@ -44,4 +41,13 @@ CREATE TABLE matches
     INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB)
     VALUES ('1', 'Friendly', Now(), 'Chi Lang', 5, 0, 0, 0);
     insert into detail (team,player_id,match_id) values( '1', 'vntdinh', '1');
+
+
+    set global event_scheduler = ON;
+    --event scheduler
+    drop event if exists `check_match`;
+    create event `check_match`
+    on schedule every 1 minute
+    do 
+    delete from matches where startTime < current_timestamp and status = 0;
 
