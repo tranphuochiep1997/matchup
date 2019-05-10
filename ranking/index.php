@@ -18,8 +18,8 @@
         <h2 style="display: inline;">List players in the world</h2>
         <span style="font-style:italic;">Order by elo</span>
         <select id="orderBy">
-          <option value="DESC">DESC</option>
-          <option value="ASC">ASC</option>
+          <option value="DESC">Descending</option>
+          <option value="ASC">Ascending</option>
         </select>
       </div>
       <ul class="list-group">
