@@ -118,6 +118,12 @@ hr {
 .hide {
     display: none;
 }
+.btn-confirm:disabled {
+    background-color: #b1bdbd;
+}
+.btn:hover:disabled {
+    background-color: #b1bdbd;
+}
 
 
   

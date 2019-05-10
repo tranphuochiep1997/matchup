@@ -3,9 +3,16 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("join").addEventListener("click", function () {
         document.getElementById("join").classList.add('btn-selected');
         const newElement = document.getElementById('new');
-        const value = newElement.innerHTML;
-        const teamListId = newElement.parentNode.getAttribute("id");
-        newElement.parentNode.removeChild(newElement);
+        let value = null;
+        let teamListId = null;
+        if (newElement) {
+            value = newElement.innerHTML;
+            teamListId = newElement.parentNode.getAttribute("id");
+            newElement.parentNode.removeChild(newElement);
+        }
+        else {
+            value = document.getElementById("username").value;
+        }
 
         addPlayer(teamListId === "team-left" ? "team-right" : "team-left", value);
     });

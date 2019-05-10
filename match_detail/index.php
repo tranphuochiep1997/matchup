@@ -1,9 +1,9 @@
 <?php
 require_once '../dbConfig.php';
-$session = !isset($_COOKIE["player_id"]) ? 'htran' : $_COOKIE["player_id"];
+$session = !isset($_COOKIE["player_id"]) ? null : $_COOKIE["player_id"];
 
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-    $sql = "SELECT * FROM matches WHERE match_id = ?";
+    $sql = "SELECT m.match_id, m.title, m.startTime, m.status, m.kind, m.loc, p.name FROM matches m, player p WHERE m.player_id = p.player_id and match_id = ?";
 
     if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -21,8 +21,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $status = $row["status"];
                 $kind = $row["kind"];
                 $loc = $row["loc"];
+                $curname = $row["name"];
             } else{
-                header("location: error.php");
+                echo $sql;
+                // header("location: error.php");
                 exit();
             }
             
@@ -37,7 +39,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             $isExist = 'exist';
         }
         else {
-            // $isExist = 'dis';
         }
         mysqli_free_result($res);
     }
@@ -46,7 +47,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     }
      
     mysqli_stmt_close($stmt);
-    // mysqli_close($link);
 }
 ?>
 
@@ -85,7 +85,17 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                                     }
                                 }
                             }
-                            echo '<li id="new">'.($session === 'htran'? 'Tran Tien Hiep': $session).'</li>'
+                            $sql_player = "SELECT * FROM player WHERE player_id = '$session'";
+                            if($res = mysqli_query($link, $sql_player)){ 
+                                if(mysqli_num_rows($res) > 0){ 
+                                    $row = mysqli_fetch_array($res, MYSQLI_ASSOC);
+                                    $player_name = $row["name"];
+                                    if(!isset($isExist) && !isset($_GET["status"])) {
+                                        echo '<li id="new">'.$player_name.'</li>';
+                                    }
+                                }
+                                mysqli_free_result($res);
+                            }
                         ?>
                         </ul>
                     </div>
@@ -95,7 +105,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <div>VS</div>
                     <div class="team-left"  style="border:none">
                         <div class="input-group">
-                            <button id="join" class="btn btn-join" type="submit" name="join" >&#x2194;</button>
+                            <button id="join" class="btn btn-join" type="submit" name="join" <?php echo isset($isExist) || !isset($session) ? "disabled" : "" ?>>&#x2194;</button>
                         </div>
                     </div>
                 </div>
@@ -124,9 +134,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 <hr>
                 <form method="post" action="action.php">
                     <input id="idTeam" type="hidden" name="team" value="1"/>
+                    <input id="username" type="hidden" name="username" value="<?php echo !isset($player_name) ? '' : $player_name ?>" />
                     <input type="hidden" name="id" value="<?php echo $_GET["id"];?>"/>
                     <div class="input-group <?php echo !empty($isExist) ? 'hide' : ''; ?>">
-                        <button class="btn-confirm" type="submit" value="Submit" >Confirm</button>
+                        <button class="btn-confirm" type="submit" value="Submit" <?php echo !isset($session) ? "disabled" : "" ?> >Confirm</button>
                     </div>
                     <div class="input-group <?php echo empty($isExist) ? 'hide' : ''; ?>">
                         <a class="btn-cancel" href="delete.php?id=<?php echo $_GET["id"];?>&playerId=<?php echo $session;?>">Cancel</a>
@@ -149,7 +160,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             <h3>Match Info</h3>
             <div class="info-form">
                 <ul class="info-match">
-                    <li>Creator: Chưa thêm zoo</li>
+                    <li>Creator: <?php echo $curname ?></li>
                     <li>Match Code: <?php echo $match_id; ?></li>
                     <li>Title: <?php echo $title; ?></li>
                     <li>Start Time: <?php echo $startTime; ?></li>
@@ -163,6 +174,4 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   </div>
   <script type="text/javascript" src="index.js"></script>
 </body>
-
-
 </html>
