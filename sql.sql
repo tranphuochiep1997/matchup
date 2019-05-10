@@ -18,6 +18,7 @@ CREATE TABLE matches
   title varchar (255),
   kind int default 5,
   startTime datetime,
+  createdTime datetime,
   scoreA int default 0,
   scoreB int default 0,
   status int default 0,
@@ -29,22 +30,40 @@ CREATE TABLE matches
   create table detail
   (
     team int not null,
-    player_id varchar(20) unique,
+    player_id varchar(20),
     foreign key (player_id) references player (player_id),
     match_id int,
     foreign key (match_id) references matches (match_id) on delete cascade,
     primary key(player_id, match_id)
 );
 
+    /* Add data */
     insert into player(player_id,password,name,elo) values ('vntdinh', '123', 'Thien Dinh', 100);
-    insert into player(player_id,password,name,elo) values ('htran', '123', 'Hiep Tran', 100);
-    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB)
-    VALUES ('1', 'Friendly', Now(), 'Chi Lang', 5, 0, 0, 0);
+    insert into player(player_id,password,name,elo) values ('htran', '123', 'Hiep T', 100);
+    insert into player(player_id,password,name,elo) values ('ptran', '123', 'Hiep P', 100);
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('1', 'Friendly 1','2019-11-05 12:30:00', 'Chi Lang', 5, 0, 1, 2, current_timestamp, 'vntdinh');
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('2', 'Friendly 2', '2019-11-05 12:31:00', 'Chi Lang', 5, 0, 2, 1, current_timestamp, 'ptran');
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('3', 'Friendly 3', '2019-11-05 12:32:00', 'Chi Lang', 5, 0, 3, 4, current_timestamp, 'ptran');
+    
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('4', 'Friendly 4', '2019-05-06 12:31:00', 'Chi Lang', 5, 1, 1, 2, current_timestamp, 'ptran');
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('5', 'Friendly 5', '2019-05-06 12:31:10', 'Chi Lang', 5, 1, 0, 0, current_timestamp, 'ptran');
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('6', 'Friendly 6', '2019-05-06 12:33:00', 'Chi Lang', 5, 1, 3, 0, current_timestamp, 'ptran');
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('7', 'Friendly 7', '2019-05-06 12:34:00', 'Chi Lang', 5, 1, 2, 0, current_timestamp, 'ptran');
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('8', 'Friendly 8', '2019-05-06 12:35:00', 'Chi Lang', 5, 1, 2, 0, current_timestamp, 'ptran');
+	
     insert into detail (team,player_id,match_id) values( '1', 'vntdinh', '1');
-
+    insert into detail (team,player_id,match_id) values( '1', 'ptran', '1'); 
+    insert into detail (team,player_id,match_id) values( '2', 'htran', '1');
 
     set global event_scheduler = ON;
-    --event scheduler
     drop event if exists `check_match`;
     create event `check_match`
     on schedule every 1 minute

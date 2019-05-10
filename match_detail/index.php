@@ -23,8 +23,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $loc = $row["loc"];
                 $curname = $row["name"];
             } else{
-                echo $sql;
-                // header("location: error.php");
+                header("location: /matchup/home/");
                 exit();
             }
             
@@ -33,7 +32,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         }
     }
 
-    $sql = "SELECT * FROM detail WHERE player_id = '$session'";
+    $sql = "SELECT * FROM detail WHERE player_id = '$session' AND match_id = '$param_id'";
     if($res = mysqli_query($link, $sql)){ 
         if(mysqli_num_rows($res) > 0){ 
             $isExist = 'exist';
@@ -59,15 +58,19 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   <title>Detail</title>
   <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="index.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body>
   <?php  include('../common/header.php'); ?>
   <div class="container">
     <div class="row match-detail">
+        <?php 
+            if (!isset($_COOKIE["player_id"])) {
+                echo "<div class='alert alert-danger'>  Please login to participate in the match</div>";
+            }
+        ?>
         <div class="column1">
-            <h3>Paticipate the match</h3>
+            <h3>Participate in the match</h3>
             <div class="match-wrapper">
                 <div class="team-title">
                     <div class="team-left" style="background-color: #3ad41e;">
@@ -76,7 +79,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <div class="team-left"> 
                         <ul id="team-left" class="info-match">
                         <?php 
-                            $sql = "SELECT d.team, p.name, p.player_id from detail d, player p WHERE d.player_id = p.player_id GROUP BY p.player_id";
+                            $matchId = $_GET["id"];
+                            $sql = "SELECT d.team, p.name, p.player_id from detail d, player p WHERE d.player_id = p.player_id AND d.match_id = '$matchId' GROUP BY p.player_id";
                             if($result = mysqli_query($link, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while ($row = mysqli_fetch_array($result)) {
@@ -84,6 +88,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                                             echo "<li>".$row["name"]."</li>";
                                     }
                                 }
+                            }
+                            else {
+                                header("Location: error.php");
                             }
                             $sql_player = "SELECT * FROM player WHERE player_id = '$session'";
                             if($res = mysqli_query($link, $sql_player)){ 

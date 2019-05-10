@@ -24,7 +24,13 @@
     padding: 8px;
     text-align: center;
   }
-  
+  .column2 .matches tr {
+    background-color: transparent !important;
+    border-bottom: 1px solid #ddd;
+  }
+  .column2 table {
+    border-bottom: none;
+  }
   .matches tr:nth-child(even){background-color: #f2f2f2;}
   .left-panel .matches tr {
     background-color: white;
@@ -53,6 +59,10 @@
   }
   .column2 a:hover {
     color: red;
+  }
+
+  .column2 .line {
+    font-size: 10px;
   }
   
   

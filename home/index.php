@@ -15,7 +15,7 @@
 </head>
 <body>
 
-    <?php  include('../common/header.php'); ?>
+    <?php include('../common/header.php'); ?>
 
     <div class="container">
     <div class="row">
@@ -24,15 +24,16 @@
             <?php
                 // Include config file
                 require_once "../dbConfig.php";
-                
-                // Attempt select query execution
-                $sql = "SELECT * FROM matches LIMIT 10";
+
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $curtime = date('Y-m-d H:i:s');
+                $sql = "SELECT * FROM matches WHERE startTime > '$curtime' ORDER BY createdTime DESC LIMIT 15";
                 if($result = mysqli_query($link, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         echo "<table class='matches'>";
                             echo "<thead>";
                                 echo "<tr>";
-                                    echo "<th>#</th>";
+                                    echo "<th>Code</th>";
                                     echo "<th>Title</th>";
                                     echo "<th>Time</th>";
                                     echo "<th>Size</th>";
@@ -74,16 +75,15 @@
                 // Include config file
                 // require_once "../dbConfig.php";
                 
-                // Attempt select query execution
-                $sql = "SELECT * FROM matches";
+                $sql = "SELECT * FROM matches WHERE startTime < '$curtime' AND status = 1 LIMIT 3";
                 if($result = mysqli_query($link, $sql)){
                     if(mysqli_num_rows($result) > 0){
-                        echo "<table class='matches'>";
+                        echo "<table id='withAjax' class='matches'>";
                             echo "<tbody>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<tr>";
                                     echo "<td><a href='index.php?id=1'>" . $row['title']  . "</a></td>";
-                                    echo "<td style='font-size: 10px;'>" . $row['startTime'] . "</td>";
+                                    echo "<td class='line'>" . $row['startTime'] . "</td>";
                                 echo "</tr>";
                             }
                             echo "</tbody>";                            
@@ -93,7 +93,7 @@
                     } else{
                         echo "<p class='lead'><em>No records were found.</em></p>";
                     }
-                    echo "<button class='btn' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>";
+                    echo "<button id='loadMore' class='btn' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>";
                 } else{
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                 }
@@ -103,5 +103,7 @@
                 ?>
         </div>
     </div>
+
+    <script type="text/javascript" src="index.js"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if (mysqli_query($link, $sql)) {
         header('Location: /matchup/match_detail/index.php?id='.$match_id.'&status=true');
     } else {
-        // exit();
+        // echo $sql;
         header('Location: /matchup/match_detail/index.php?id='.$match_id.'&status=false');
     }
     // Close connection

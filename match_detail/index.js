@@ -24,4 +24,5 @@ document.addEventListener("DOMContentLoaded", function () {
         node.innerHTML = value;
         document.getElementById(idUl).appendChild(node);
     }
+
 });
