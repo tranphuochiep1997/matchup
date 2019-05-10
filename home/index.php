@@ -27,7 +27,7 @@
 
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
                 $curtime = date('Y-m-d H:i:s');
-                $sql = "SELECT * FROM matches WHERE startTime > '$curtime' ORDER BY createdTime DESC LIMIT 15";
+                $sql = "SELECT * FROM matches WHERE startTime > '$curtime' ORDER BY startTime ASC LIMIT 15";
                 if($result = mysqli_query($link, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         echo "<table class='matches'>";
@@ -75,14 +75,14 @@
                 // Include config file
                 // require_once "../dbConfig.php";
                 
-                $sql = "SELECT * FROM matches WHERE startTime < '$curtime' AND status = 1 LIMIT 3";
+                $sql = "SELECT * FROM matches WHERE startTime < '$curtime' AND status = 1 LIMIT 5";
                 if($result = mysqli_query($link, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         echo "<table id='withAjax' class='matches'>";
                             echo "<tbody>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<tr>";
-                                    echo "<td><a href='index.php?id=1'>" . $row['title']  . "</a></td>";
+                                    echo "<td><a href='/matchup/match_detail/index.php?id=".$row['match_id']."&readOnly=true'>" . $row['title']  . "</a></td>";
                                     echo "<td class='line'>" . $row['startTime'] . "</td>";
                                 echo "</tr>";
                             }

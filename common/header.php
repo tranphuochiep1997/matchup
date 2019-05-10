@@ -1,7 +1,7 @@
 <?php
 echo '<div class="fixed-header">';
 echo    '<nav>';
-echo        '<a href="/matchup/home" style="float:left">MATCH MAKING</a>';
+echo        '<a class="home" href="/matchup/home" style="float:left">MATCH MAKING</a>';
 	        if (isset($_COOKIE["player_id"])){
 				echo '<a href = "/matchup/auth/logout.php">Logout</a>';
 				require_once "../dbConfig.php";
