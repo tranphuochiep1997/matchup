@@ -1,8 +1,8 @@
 <?php
+require_once '../dbConfig.php';
+$session = !isset($_COOKIE["player_id"]) ? 'htran' : $_COOKIE["player_id"];
 
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-    require_once '../dbConfig.php';
-    // $message = "<p style='display:none'></p>";
     $sql = "SELECT * FROM matches WHERE match_id = ?";
 
     if($stmt = mysqli_prepare($link, $sql)){
@@ -30,30 +30,24 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             echo "Oops! Something went wrong. Please try again later.";
         }
     }
+
+    $sql = "SELECT * FROM detail WHERE player_id = '$session'";
+    if($res = mysqli_query($link, $sql)){ 
+        if(mysqli_num_rows($res) > 0){ 
+            $isExist = 'exist';
+        }
+        else {
+            // $isExist = 'dis';
+        }
+        mysqli_free_result($res);
+    }
+    else {
+        echo "Error";
+    }
      
     mysqli_stmt_close($stmt);
     // mysqli_close($link);
 }
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){ 
-
-    require_once '../dbConfig.php';
-
-    $team = $_POST["idTeam"];
-    $match_id = $_GET["id"];
-
-    $sql = "INSERT INTO detail(team, player_id, match_id) VALUES('$team', 'htran', '$match_id')";
-
-    if (mysqli_query($link, $sql)) {
-        $message='<div class="message-success">Welcome to the match. Kindly Enjoy it</div>';
-    } else {
-        $message='<div class="message-error">You are in game already!!</div>';
-    //   echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-    }
-    // Close connection
-    mysqli_close($link);
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -81,17 +75,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                     <div class="team-left"> 
                         <ul id="team-left" class="info-match">
-                            <li>L. Messi</li>
+                        <?php 
+                            $sql = "SELECT d.team, p.name, p.player_id from detail d, player p WHERE d.player_id = p.player_id GROUP BY p.player_id";
+                            if($result = mysqli_query($link, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        if($row["team"] === '1')
+                                            echo "<li>".$row["name"]."</li>";
+                                    }
+                                }
+                            }
+                            echo '<li id="new">'.($session === 'htran'? 'Tran Tien Hiep': $session).'</li>'
+                        ?>
                         </ul>
-                    </div>
-                    <div class="team-left"  style="border:none">
-                        <div class="input-group">
-                            <button id="join-left" class="btn btn-join btn-join-left" type="submit" name="join" >Join</button>
-                        </div>
                     </div>
                 </div>
                 
-                <div class="vs"> VS </div>
+                <div class="vs"> 
+                    <div>VS</div>
+                    <div class="team-left"  style="border:none">
+                        <div class="input-group">
+                            <button id="join" class="btn btn-join" type="submit" name="join" >&#x2194;</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="team-title">
                     <div class="team-right" style="background-color: #fba955;">
@@ -100,28 +107,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                     <div class="team-right"> 
                         <ul id="team-right" class="info-match">
-                            <li>Neymar Jr</li>
+                            <?php 
+                               if($result = mysqli_query($link, $sql)){
+                                    if(mysqli_num_rows($result) > 0){
+                                        while ($row = mysqli_fetch_array($result)) {
+                                            if($row["team"] === '2')
+                                                echo "<li>".$row["name"]."</li>";
+                                        }
+                                    }
+                                }
+                            ?>
                         </ul>
                     </div>
-
-                    <div class="team-right" style="border:none">
-                        <div class="input-group">
-                            <button id="join-right" class="btn btn-join btn-join-right" type="submit" name="join" >Join</button>
-                        </div>
-                    </div>
-
                 </div>
 
                 <hr>
-                <form method="post" action="index.php?id=<?php echo $param_id; ?>">
+                <form method="post" action="action.php">
                     <input id="idTeam" type="hidden" name="team" value="1"/>
-                    <div class="input-group">
+                    <input type="hidden" name="id" value="<?php echo $_GET["id"];?>"/>
+                    <div class="input-group <?php echo !empty($isExist) ? 'hide' : ''; ?>">
                         <button class="btn-confirm" type="submit" value="Submit" >Confirm</button>
+                    </div>
+                    <div class="input-group <?php echo empty($isExist) ? 'hide' : ''; ?>">
+                        <a class="btn-cancel" href="delete.php?id=<?php echo $_GET["id"];?>&playerId=<?php echo $session;?>">Cancel</a>
                     </div>
                     <div class="input-group ">
                         <?php 
-                            if(isset($_GET["id"]) && isset($message)) {
-                                echo $message;
+                            if(isset($_GET["status"])) {
+                                if($_GET["status"]==='true')
+                                    echo '<p class="message-success">You are in game now. Kindly enjoy it :)</p>';
+                                else if($_GET["status"]==='out')
+                                    echo '<p class="message-success">You have left the game. Pretty regretful :(</p>';
+                                else echo '<p class="message-error">Something went wrong</p>';
                             }
                         ?>
                      </div>
@@ -132,6 +149,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <h3>Match Info</h3>
             <div class="info-form">
                 <ul class="info-match">
+                    <li>Creator: Chưa thêm zoo</li>
                     <li>Match Code: <?php echo $match_id; ?></li>
                     <li>Title: <?php echo $title; ?></li>
                     <li>Start Time: <?php echo $startTime; ?></li>
@@ -143,8 +161,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
     </div>
   </div>
-  
+  <script type="text/javascript" src="index.js"></script>
 </body>
-<script type="text/javascript" src="index.js"></script>
+
 
 </html>

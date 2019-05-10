@@ -79,17 +79,11 @@
                 if($result = mysqli_query($link, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         echo "<table class='matches'>";
-                            echo "<thead>";
-                                echo "<tr>";
-                                    echo "<th>Match</th>";
-                                    echo "<th>Time</th>";
-                                echo "</tr>";
-                            echo "</thead>";
                             echo "<tbody>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<tr>";
-                                    echo "<td>" . $row['match_id']  . "</td>";
-                                    echo "<td>" . $row['startTime'] . "</td>";
+                                    echo "<td><a href='index.php?id=1'>" . $row['title']  . "</a></td>";
+                                    echo "<td style='font-size: 10px;'>" . $row['startTime'] . "</td>";
                                 echo "</tr>";
                             }
                             echo "</tbody>";                            
@@ -99,6 +93,7 @@
                     } else{
                         echo "<p class='lead'><em>No records were found.</em></p>";
                     }
+                    echo "<button class='btn' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>";
                 } else{
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                 }
