@@ -23,7 +23,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $loc = $row["loc"];
                 $curname = $row["name"];
             } else{
-                header("location: error.php");
+                echo $sql;
+                // header("location: error.php");
                 exit();
             }
             
@@ -104,7 +105,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <div>VS</div>
                     <div class="team-left"  style="border:none">
                         <div class="input-group">
-                            <button id="join" class="btn btn-join" type="submit" name="join" <?php echo isset($isExist) ? "disabled" : "" ?>>&#x2194;</button>
+                            <button id="join" class="btn btn-join" type="submit" name="join" <?php echo isset($isExist) || !isset($session) ? "disabled" : "" ?>>&#x2194;</button>
                         </div>
                     </div>
                 </div>
