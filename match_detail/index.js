@@ -25,4 +25,18 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById(idUl).appendChild(node);
     }
 
+
+    const modal =  document.getElementsByClassName("modal")[0];
+
+    document.getElementById("btn-update-score").addEventListener("click", showModal);
+
+    function showModal() {
+        modal.classList.add("show");
+    }
+
+    document.getElementsByClassName("close")[0].addEventListener("click", hideModal);
+    
+    function hideModal() {
+        modal.classList.remove("show");
+    }
 });

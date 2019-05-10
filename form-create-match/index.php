@@ -47,6 +47,11 @@
             <datalist id="listStadium">
               <option value="Chuyên Việt"></option>
               <option value="Trang Hoàng"></option>
+              <option value="Duy Tân"></option>
+              <option value="Đại học thể dục thể thao"></option>
+              <option value="An Phúc"></option>
+              <option value="Paracel"></option>
+              <option value="Tuyên sơn"></option>
             </datalist>
           </div>
 
@@ -81,7 +86,7 @@
       for(let i = 0; i < fadedElements.length; i++) {
         fadedElements[i].remove();
       } 
-    }, 3000);
+    }, 4000);
   </script>
 </body>
 

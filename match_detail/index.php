@@ -161,6 +161,11 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         ?>
                      </div>
                 </form>
+                <?php
+                if ($session && $status == 0) {
+                    echo "<button id='btn-update-score' class='btn' type='button' style='background-color: red;'>Update the score</button>";
+                }
+                ?>
             </div>
         </div>
         <div class="column2">
@@ -176,6 +181,33 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <li>Location: <?php echo $loc; ?></li>
                 </ul>
             </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span>Update score</span>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form action="updateScore.php" method="post">
+                <div class="inner-form-update-score">
+                    <div>
+                        <span>Team 1</span>
+                        <input type="number" name="scoreA" required>
+                    </div>
+                    <div>-</div>
+                    <div>
+                        <input type="number" name="scoreB" required/>
+                        <span>Team 2</span>
+                    </div>
+                </div>
+                <?php
+                echo "<input type='hidden' name='match_id' value='$matchId' />";
+                ?>
+                <button class="btn" type="submit">Save</button>
+            </form>
         </div>
     </div>
   </div>

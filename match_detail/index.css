@@ -145,5 +145,62 @@ hr {
 }
   
 
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+  
+.modal-content {
+    position: relative;
+    width: 550px;
+    min-height: 200px;
+    margin: 1.75rem auto;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+}
+
+.modal-header {
+    position: relative;
+    padding: 10px 20px;
+    vertical-align: -webkit-baseline-middle;
+    font-size: 28px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-body {
+    position: relative;
+    padding: 1rem;
+}
+
+.inner-form-update-score {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 0px;
+    font-weight: 500;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-weight: bold;
+  }
+  
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.show {
+    display: block;
+}
 
   

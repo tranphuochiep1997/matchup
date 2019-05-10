@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // example request
-        getAjax('http://localhost/matchup/api/matches?page=' + (count++), function (data) {
+        getAjax('../api/matches?page=' + (count++), function (data) {
             var elements = JSON.parse(data).data;
             for (let i = 0; i < elements.length; i++) {
                 // Get a reference to the table
