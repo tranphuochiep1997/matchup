@@ -19,6 +19,15 @@
         <span class="sub-title">Please provide some information</span>
       </div>
       <div class="card-body">
+        <?php
+        if (!isset($_COOKIE["player_id"])) {
+          echo "<div class='alert alert-danger'> Please login to create match</div>";
+        } else {
+          if (isset($_GET["status"])) {
+            echo "<div class='alert alert-success faded'>Match created successfully</div>";
+          }
+        }
+        ?>
         <form action="action.php" method="post">
           <div class="form-group">
             <label for="inputTitle">Title</label>
@@ -34,7 +43,11 @@
 
           <div class="form-group">
             <label for="inputLocation">Location</label>
-            <input type="text" id="inputLocation" name="location" required />
+            <input list="listStadium" id="inputLocation" name="location" required />
+            <datalist id="listStadium">
+              <option value="Chuyên Việt"></option>
+              <option value="Trang Hoàng"></option>
+            </datalist>
           </div>
 
           <div class="form-group">
@@ -42,12 +55,34 @@
             <input type="datetime-local" id="inputStartTime" name="startTime" required />
           </div>
 
-          <input style="background-color: #28a745; color: #fff;" class="btn" type="submit" value="Submit" />
+          <?php
+
+          if (isset($_COOKIE["player_id"])) {
+            //Normal button
+            echo "<input style='background-color: #28a745; color: #fff;' class='btn' type='submit' value='Submit' />";
+          } else {
+            // Disabled button
+            echo "<input 
+            style='background-color: #28a745; color: #fff;' 
+            class='btn' 
+            type='submit' 
+            disabled
+            value='Submit' />";
+          }
+          ?>
         </form>
       </div>
     </div>
   </div>
 
+  <script>
+    const fadedElements = document.getElementsByClassName('faded');
+    setTimeout(() => {
+      for(let i = 0; i < fadedElements.length; i++) {
+        fadedElements[i].remove();
+      } 
+    }, 3000);
+  </script>
 </body>
 
 </html>

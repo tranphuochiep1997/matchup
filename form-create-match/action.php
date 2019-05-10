@@ -12,7 +12,7 @@ $sql = "INSERT INTO matches(player_id, title, kind, startTime, status, loc) VALU
 ('vntdinh', '$title', '$kind', '$startTime', 1, '$location')";
 
 if (mysqli_query($link, $sql)) {
-  header('Location: /matchup/form-create-match', true);
+  header('Location: /matchup/form-create-match?status=1', true);
 } else {
   echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
