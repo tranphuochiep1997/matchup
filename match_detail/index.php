@@ -56,21 +56,27 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Detail</title>
-  <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
 </head>
 
 <body>
   <?php  include('../common/header.php'); ?>
   <div class="container">
-    <div class="row match-detail">
+    <div class="row">
         <?php 
-            if (!isset($_COOKIE["player_id"])) {
+            if (!isset($_COOKIE["player_id"]) && !isset($_GET["readOnly"])) {
                 echo "<div class='alert alert-danger'>  Please login to participate in the match</div>";
             }
         ?>
         <div class="column1">
-            <h3>Participate in the match</h3>
+            <?php 
+                if(!isset($_GET["readOnly"])) {
+                    echo '<h3>Participate in the match</h3>';
+                }
+                else echo '<h3>Match history</h3>';
+            ?>
+            
             <div class="match-wrapper">
                 <div class="team-title">
                     <div class="team-left" style="background-color: #3ad41e;">
@@ -97,8 +103,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                                 if(mysqli_num_rows($res) > 0){ 
                                     $row = mysqli_fetch_array($res, MYSQLI_ASSOC);
                                     $player_name = $row["name"];
-                                    if(!isset($isExist) && !isset($_GET["status"])) {
-                                        echo '<li id="new">'.$player_name.'</li>';
+                                    if(!isset($_GET["readOnly"])) {
+                                        if(!isset($isExist) && !isset($_GET["status"])) {
+                                            echo '<li id="new">'.$player_name.'</li>';
+                                        }
                                     }
                                 }
                                 mysqli_free_result($res);
@@ -110,7 +118,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 
                 <div class="vs"> 
                     <div>VS</div>
-                    <div class="team-left"  style="border:none">
+                    <div class="team-left"  style="border:none; <?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
                         <div class="input-group">
                             <button id="join" class="btn btn-join" type="submit" name="join" <?php echo isset($isExist) || !isset($session) ? "disabled" : "" ?>>&#x2194;</button>
                         </div>
@@ -143,10 +151,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <input id="idTeam" type="hidden" name="team" value="1"/>
                     <input id="username" type="hidden" name="username" value="<?php echo !isset($player_name) ? '' : $player_name ?>" />
                     <input type="hidden" name="id" value="<?php echo $_GET["id"];?>"/>
-                    <div class="input-group <?php echo !empty($isExist) ? 'hide' : ''; ?>">
+                    <div class="input-group <?php echo !empty($isExist) ? 'hide' : ''; ?>" style="<?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
                         <button class="btn-confirm" type="submit" value="Submit" <?php echo !isset($session) ? "disabled" : "" ?> >Confirm</button>
                     </div>
-                    <div class="input-group <?php echo empty($isExist) ? 'hide' : ''; ?>">
+                    <div class="input-group <?php echo empty($isExist) ? 'hide' : ''; ?>" style="<?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
                         <a class="btn-cancel" href="delete.php?id=<?php echo $_GET["id"];?>&playerId=<?php echo $session;?>">Cancel</a>
                     </div>
                     <div class="input-group ">
@@ -172,9 +180,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             <h3>Match Info</h3>
             <div class="info-form">
                 <ul class="info-match">
+                    <li>Title: <?php echo $title; ?></li>
                     <li>Creator: <?php echo $curname ?></li>
                     <li>Match Code: <?php echo $match_id; ?></li>
-                    <li>Title: <?php echo $title; ?></li>
                     <li>Start Time: <?php echo $startTime; ?></li>
                     <li>Type: <?php echo $kind; ?></li>
                     <li>Status: <?php echo $status; ?></li>

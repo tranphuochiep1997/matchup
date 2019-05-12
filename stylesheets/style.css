@@ -70,14 +70,26 @@ nav a:hover {
 .row {
   width: 100%;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
   .column1 {
     width: 100%;
+    box-sizing: border-box;
   }
   .column2 {
     width: 100%;
+    box-sizing: border-box;
   }
   .container {
+    width: 100%;
+  }
+  nav a.home {
+    display: inline-block;
+  }
+  nav a {
+    display: none;
+  }
+  .team-title,
+  .vs {
     width: 100%;
   }
 }
