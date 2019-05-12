@@ -60,21 +60,11 @@
             <input type="datetime-local" id="inputStartTime" name="startTime" required />
           </div>
 
-          <?php
-
-          if (isset($_COOKIE["player_id"])) {
-            //Normal button
-            echo "<input style='background-color: #28a745; color: #fff;' class='btn' type='submit' value='Submit' />";
-          } else {
-            // Disabled button
-            echo "<input 
-            style='background-color: #28a745; color: #fff;' 
-            class='btn' 
-            type='submit' 
-            disabled
-            value='Submit' />";
-          }
-          ?>
+          <button 
+            type="submit" 
+            class="btn"
+            <?php if(!isset($_COOKIE["player_id"])) echo "disabled" ?>
+            style="background-color: #28a745; color: #fff;">Submit</button>
         </form>
       </div>
     </div>

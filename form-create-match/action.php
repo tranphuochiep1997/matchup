@@ -12,7 +12,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 $curtime = date('Y-m-d H:i:s');
 
 $sql = "INSERT INTO matches(player_id, title, kind, startTime, status, loc, createdTime) VALUES
-('vntdinh', '$title', '$kind', '$startTime', 1, '$location', '$curtime')";
+('vntdinh', '$title', '$kind', '$startTime', 0, '$location', '$curtime')";
 
 if (mysqli_query($link, $sql)) {
   header('Location: /matchup/form-create-match?status=1', true);

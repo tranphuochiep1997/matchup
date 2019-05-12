@@ -3,7 +3,7 @@ require_once '../dbConfig.php';
 $session = !isset($_COOKIE["player_id"]) ? null : $_COOKIE["player_id"];
 
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-    $sql = "SELECT m.match_id, m.title, m.startTime, m.status, m.kind, m.loc, p.name FROM matches m, player p WHERE m.player_id = p.player_id and match_id = ?";
+    $sql = "SELECT m.match_id, m.title, m.startTime, m.status, m.kind, m.loc, p.name, m.player_id FROM matches m, player p WHERE m.player_id = p.player_id and match_id = ?";
 
     if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -22,6 +22,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $kind = $row["kind"];
                 $loc = $row["loc"];
                 $curname = $row["name"];
+                $owner = $row["player_id"];
             } else{
                 header("location: /matchup/home/");
                 exit();
@@ -170,7 +171,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                      </div>
                 </form>
                 <?php
-                if ($session && $status == 0) {
+                if ($session && $status == 1 && $session === $owner) {
                     echo "<button id='btn-update-score' class='btn' type='button' style='background-color: red;'>Update the score</button>";
                 }
                 ?>
@@ -199,7 +200,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-            <form action="updateScore.php" method="post">
+            <form action="update.php" method="post">
                 <div class="inner-form-update-score">
                     <div>
                         <span>Team 1</span>
@@ -211,9 +212,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <span>Team 2</span>
                     </div>
                 </div>
-                <?php
-                echo "<input type='hidden' name='match_id' value='$matchId' />";
-                ?>
+                <input type='hidden' name='match_id' value='<?php echo $matchId ?>' />
                 <button class="btn" type="submit">Save</button>
             </form>
         </div>
