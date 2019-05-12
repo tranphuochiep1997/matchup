@@ -3,7 +3,7 @@ require_once '../dbConfig.php';
 $session = !isset($_COOKIE["player_id"]) ? null : $_COOKIE["player_id"];
 
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-    $sql = "SELECT m.match_id, m.title, m.startTime, m.status, m.kind, m.loc, p.name, m.player_id FROM matches m, player p WHERE m.player_id = p.player_id and match_id = ?";
+    $sql = "SELECT m.match_id, m.title, m.startTime, m.status, m.kind, m.loc, p.name, m.player_id, m.scoreA, m.scoreB FROM matches m, player p WHERE m.player_id = p.player_id and match_id = ?";
 
     if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -22,6 +22,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $kind = $row["kind"];
                 $loc = $row["loc"];
                 $curname = $row["name"];
+                $scoreA = $row["scoreA"];
+                $scoreB = $row["scoreB"];
                 $owner = $row["player_id"];
             } else{
                 header("location: /matchup/home/");
@@ -105,7 +107,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                                     $row = mysqli_fetch_array($res, MYSQLI_ASSOC);
                                     $player_name = $row["name"];
                                     if(!isset($_GET["readOnly"])) {
-                                        if(!isset($isExist) && !isset($_GET["status"])) {
+                                        if(!isset($isExist) && !isset($_GET["status"]) && $status !== 2) {
                                             echo '<li id="new">'.$player_name.'</li>';
                                         }
                                     }
@@ -118,8 +120,15 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 </div>
                 
                 <div class="vs"> 
-                    <div>VS</div>
-                    <div class="team-left"  style="border:none; <?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
+                    <?php 
+                        if($status === 2) {
+                            echo "<div class='score'>".$scoreA." - ".$scoreB."</div>";
+                        }
+                        else {
+                            echo "<div class='score'>VS</div>";
+                        }
+                    ?>
+                    <div class="team-left"  style="border:none; <?php echo isset($_GET["readOnly"]) || $status === 2 ? 'display: none': ''?>">
                         <div class="input-group">
                             <button id="join" class="btn btn-join" type="submit" name="join" <?php echo isset($isExist) || !isset($session) ? "disabled" : "" ?>>&#x2194;</button>
                         </div>
@@ -152,10 +161,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <input id="idTeam" type="hidden" name="team" value="1"/>
                     <input id="username" type="hidden" name="username" value="<?php echo !isset($player_name) ? '' : $player_name ?>" />
                     <input type="hidden" name="id" value="<?php echo $_GET["id"];?>"/>
-                    <div class="input-group <?php echo !empty($isExist) ? 'hide' : ''; ?>" style="<?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
+                    <div class="input-group <?php echo !empty($isExist) || $status === 2 ? 'hide' : ''; ?>" style="<?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
                         <button class="btn-confirm" type="submit" value="Submit" <?php echo !isset($session) ? "disabled" : "" ?> >Confirm</button>
                     </div>
-                    <div class="input-group <?php echo empty($isExist) ? 'hide' : ''; ?>" style="<?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
+                    <div class="input-group <?php echo empty($isExist) || $status === 2 ? 'hide' : ''; ?>" style="<?php echo isset($_GET["readOnly"]) ? 'display: none': ''?>">
                         <a class="btn-cancel" href="delete.php?id=<?php echo $_GET["id"];?>&playerId=<?php echo $session;?>">Cancel</a>
                     </div>
                     <div class="input-group ">

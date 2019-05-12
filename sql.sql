@@ -58,6 +58,8 @@ CREATE TABLE matches
     VALUES ('7', 'Friendly 7', '2019-05-06 12:34:00', 'Chi Lang', 5, 1, 2, 0, current_timestamp, 'ptran');
     INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
     VALUES ('8', 'Friendly 8', '2019-05-06 12:35:00', 'Chi Lang', 5, 1, 2, 0, current_timestamp, 'ptran');
+    INSERT INTO matches(match_id, title, startTime, loc, kind, status, scoreA, scoreB, createdTime, player_id)
+    VALUES ('9', 'Friendly 9','2019-11-06 12:30:00', 'Chi Lang', 5, 1, 1, 2, current_timestamp, 'vntdinh');
 	
     insert into detail (team,player_id,match_id) values( '1', 'vntdinh', '1');
     insert into detail (team,player_id,match_id) values( '1', 'ptran', '1'); 
