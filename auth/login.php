@@ -1,17 +1,13 @@
 <?php include('server.php') ?> 
-<?php
-	// if(isset($_COOKIE["player_id"]))
-	// {
- 	// 	header("location:/matchup/home");
-	// }
-?>
 <!DOCTYPE html>
 <html>
 <head>
   <title>Football match-making website</title>
-  <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="../auth/index.css">
 </head>
 <body>
+  <div class ="background"></div>
+  <div class="form">
   <div class="header">
     <h2>Login</h2>
   </div>
@@ -33,5 +29,8 @@
         Not yet a member? <a href="register.php">Sign up</a>
     </p>
   </form>
+  </div>
+  
+  
 </body>
 </html>

@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
+<div class ="background"></div>
   <div class="header">
   	<h2>Register</h2>
   </div>
