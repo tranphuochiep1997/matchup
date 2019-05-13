@@ -14,9 +14,9 @@
   <?php include('../common/header.php'); ?>
   <div class="container">
     <div class="row">
-      <div>
-        <h2 style="display: inline;">List players in the world</h2>
-        <span style="font-style:italic;">Order by elo</span>
+      <div class="heading">
+        <h2>List players in the world</h2>
+        <span style="font-style:italic; margin: 0px 10px;">Order by elo</span>
         <select id="orderBy">
           <option value="DESC">Descending</option>
           <option value="ASC">Ascending</option>
@@ -51,12 +51,18 @@
   <script>
     // Update select options
     const urlParams = new URLSearchParams(window.location.search);
-    const orderByValue = urlParams.get('orderBy') || 'DESC';
+    let orderByValue = urlParams.get('orderBy');
+
+    if (!orderByValue) {
+      orderByValue = localStorage.getItem('eloOrderBy') || 'DESC';
+      window.location = "?orderBy=" + orderByValue;
+    }
 
     const orderByElement = document.getElementById('orderBy');
 
     orderByElement.value = orderByValue;
     orderByElement.addEventListener('change', e => {
+      localStorage.setItem('eloOrderBy', e.target.value);
       window.location = "?orderBy=" + e.target.value;
     })
   </script>
