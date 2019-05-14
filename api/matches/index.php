@@ -7,12 +7,12 @@ require_once "../../dbConfig.php";
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-$beforeOneHour = date("Y-m-d H:i:s", time() - (60 * 60));
+$page = isset($_GET["page"]) ? (int)$_GET["page"] - 1 : 1;
 
-$page = isset($_GET["page"]) ? $_GET["page"] : 1;
-$limit = 5;
-$offset = ((int)$page - 1) * $limit;
-$sql = "SELECT * FROM matches where startTime < '$beforeOneHour' limit $limit offset $offset";
+$limit = isset($_GET["limit"]) ? (int)$_GET["limit"] : 5;
+$offset = $page * $limit;
+
+$sql = "SELECT * FROM matches where startTime < (current_timestamp - interval 1 hour) limit $limit offset $offset";
 
 // $response = array();
 // $response["data"] = array();

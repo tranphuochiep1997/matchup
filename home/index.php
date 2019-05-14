@@ -7,6 +7,7 @@
   <title>HOME</title>
   <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="index.css">
+  <script src="../common/callApi.js"></script>
 </head>
 <body>
 
@@ -61,40 +62,44 @@
                 }
 
                 // Close connection
-                // mysqli_close($link);
+                mysqli_close($link);
                 ?>
         </div>
         <div class="column2">
             <h3>Recent Matches</h3>
+            <table class="matches">
+                <tbody id="recent-matches-body"></tbody>
+            </table>
+            <button id='loadMore' class='btn hidden' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>
             <?php
                 // Include config file
                 // require_once "../dbConfig.php";
                 
-                $sql = "SELECT * FROM matches WHERE startTime < '$curtime' AND status = 1 LIMIT 5";
-                if($result = mysqli_query($link, $sql)){
-                    if(mysqli_num_rows($result) > 0){
-                        echo "<table id='withAjax' class='matches'>";
-                            echo "<tbody>";
-                            while($row = mysqli_fetch_array($result)){
-                                echo "<tr>";
-                                    echo "<td><a href='/matchup/match_detail/index.php?id=".$row['match_id']."&readOnly=true'>" . $row['title']  . "</a></td>";
-                                    echo "<td class='line'>" . $row['startTime'] . "</td>";
-                                echo "</tr>";
-                            }
-                            echo "</tbody>";                            
-                        echo "</table>";
-                        // Free result set
-                        mysqli_free_result($result);
-                    } else{
-                        echo "<p class='lead'><em>No records were found.</em></p>";
-                    }
-                    echo "<button id='loadMore' class='btn' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>";
-                } else{
-                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                }
+                // $sql = "SELECT * FROM matches WHERE startTime < '$curtime' AND status = 1 LIMIT 5";
+                // if($result = mysqli_query($link, $sql)){
+                //     if(mysqli_num_rows($result) > 0){
+                //         echo "<table id='withAjax' class='matches'>";
+                //             echo "<tbody>";
+                //             while($row = mysqli_fetch_array($result)){
+                //                 echo "<tr>";
+                //                     echo "<td><a href='/matchup/match_detail/index.php?id=".$row['match_id']."&readOnly=true'>" . $row['title']  . "</a></td>";
+                //                     echo "<td class='line'>" . $row['startTime'] . "</td>";
+                //                 echo "</tr>";
+                //             }
+                //             echo "</tbody>";                            
+                //         echo "</table>";
+                //         // Free result set
+                //         mysqli_free_result($result);
+                //     } else{
+                //         echo "<p class='lead'><em>No records were found.</em></p>";
+                //     }
+                //     echo "<button id='loadMore' class='btn' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>";
+                // } else{
+                //     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                // }
 
-                // Close connection
-                mysqli_close($link);
+                // // Close connection
+                // mysqli_close($link);
                 ?>
         </div>
     </div>
