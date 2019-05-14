@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let page = 1;
     const limit = 5;
+    const bodyTable = document.getElementById('recent-matches-body');
+
     fetchMatches();
 
     function fetchMatches() {
@@ -49,9 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const matches = response.responseXML.getElementsByTagName('match');
 
-        const bodyTable = document.getElementById('recent-matches-body');
         for(let i = 0; i < matches.length; i++) {
-            appendNewMatch(matches[i], bodyTable);
+            appendNewMatch(matches[i]);
         }
 
         if (matches.length === limit) {
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function appendNewMatch(match, parent) {
+    function appendNewMatch(match) {
         const title = match.getElementsByTagName('title')[0].firstChild.nodeValue;
         const startTime = match.getElementsByTagName('startTime')[0].firstChild.nodeValue;
         const match_id = match.getElementsByTagName('match_id')[0].firstChild.nodeValue;
@@ -80,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tr.appendChild(titleElement);
         tr.appendChild(timeElement);
-        parent.appendChild(tr);
+        bodyTable.appendChild(tr);
     }
 
     // Add event loadmore
