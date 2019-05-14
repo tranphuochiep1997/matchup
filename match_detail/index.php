@@ -86,7 +86,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p1>TEAM 1</p1>
                     </div>
                     <div class="team-left"> 
-                        <ul id="team-left" class="info-match">
+                        <ol id="team-left" class="info-match">
                         <?php 
                             $matchId = $_GET["id"];
                             $sql = "SELECT d.team, p.name, p.player_id from detail d, player p WHERE d.player_id = p.player_id AND d.match_id = '$matchId' GROUP BY p.player_id";
@@ -115,7 +115,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                                 mysqli_free_result($res);
                             }
                         ?>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
                 
@@ -141,7 +141,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     </div>
 
                     <div class="team-right"> 
-                        <ul id="team-right" class="info-match">
+                        <ol id="team-right" class="info-match">
                             <?php 
                                if($result = mysqli_query($link, $sql)){
                                     if(mysqli_num_rows($result) > 0){
@@ -152,7 +152,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                                     }
                                 }
                             ?>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
 

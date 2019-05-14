@@ -20,7 +20,9 @@ echo        '<a class="home" href="/matchup/home" style="float:left">MATCH MAKIN
 			}
 			
 echo        '<a href="/matchup/form-create-match">Create Match</a>';
-echo        '<a href="#">My Matches</a>';
+			if(isset($_COOKIE["player_id"])) {
+				echo        '<a href="/matchup/my-matches/">My Matches</a>';
+			}
 echo        '<a href="/matchup/ranking">Ranking</a>';
 echo    '</nav>';
 echo '</div>';
