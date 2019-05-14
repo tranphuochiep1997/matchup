@@ -1,6 +1,13 @@
 .list-group {
   padding: 0px;
-  width: 50%;
+  width: 100%;
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .list-group-item {

@@ -72,3 +72,34 @@ CREATE TABLE matches
     do 
     delete from matches where startTime < current_timestamp and status = 0;
 
+DROP TRIGGER IF EXISTS update_elo;
+
+DELIMITER //
+CREATE TRIGGER update_elo AFTER UPDATE ON matches
+FOR EACH ROW
+BEGIN
+  IF (NEW.status = 2) 
+  THEN
+    CASE 
+      WHEN NEW.scoreA > NEW.scoreB THEN -- Case 1: Team 1 wins
+      BEGIN
+        UPDATE player INNER JOIN detail ON player.player_id = detail.player_id AND match_id = NEW.match_id
+        SET elo = IF (team = 1, elo + 3, elo - 3);
+      END; -- End case 1
+
+      WHEN NEW.scoreA < NEW.scoreB THEN -- Case 2: Team 2 wins
+      BEGIN
+        UPDATE player INNER JOIN detail ON player.player_id = detail.player_id AND match_id = NEW.match_id
+        SET elo = IF (team = 1, elo - 3, elo + 3);
+      END; -- End case 2
+
+      ELSE -- Case 3: Draw
+      BEGIN
+        UPDATE player INNER JOIN detail ON player.player_id = detail.player_id AND match_id = NEW.match_id
+        SET elo = elo + 1;
+      END; -- End case 3
+
+    END CASE; -- End case
+  END IF; -- End if
+END; // -- End trigger
+DELIMITER ;
