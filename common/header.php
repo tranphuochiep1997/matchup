@@ -1,29 +1,31 @@
 <?php
-echo '<div class="fixed-header">';
-echo    '<nav>';
-echo        '<a class="home" href="/matchup/home" style="float:left">MATCH MAKING</a>';
+echo '<div class="header-nav">';
+echo     '<label for="show-menu" class="show-menu"><img src="../images/icon.png" style="width: 13px;"><span style="padding: 5px">Menu</span></label>';
+echo	'<input type="checkbox" id="show-menu" role="button">';
+echo    '<ul id="menu">';
+echo        '<li style="float:left"><a class="home" href="/matchup/home" >MATCH MAKING</a></li>';
 	        if (isset($_COOKIE["player_id"])){
-				echo '<a href = "/matchup/auth/logout.php">Logout</a>';
+				echo '<li><a href = "/matchup/auth/logout.php">Logout</a></li>';
 				require_once "../dbConfig.php";
 				$player_id = $_COOKIE["player_id"];
 				$sql = "SELECT p.name FROM player p where p.player_id = '$player_id'";
 				$result = mysqli_query($link, $sql);
 				if(mysqli_num_rows($result) > 0){
 					while($row = mysqli_fetch_array($result)){ 
-						echo '<a>Welcome ' . $row['name'] . '</a>';
+						echo '<li class="user"><a>Welcome ' . $row['name'] . '</a></li>';
 					}
 				}			
 				
 			}
 			else {
-				echo '<a href = "/matchup/auth/login.php">Login</a>';
+				echo '<li><a href = "/matchup/auth/login.php">Login</a></li>';
 			}
 			
-echo        '<a href="/matchup/form-create-match">Create Match</a>';
+echo        '<li><a href="/matchup/form-create-match">Create Match</a></li>';
 			if(isset($_COOKIE["player_id"])) {
-				echo        '<a href="/matchup/my-matches/">My Matches</a>';
+				echo        '<li><a href="/matchup/my-matches/">My Matches</a></li>';
 			}
-echo        '<a href="/matchup/ranking">Ranking</a>';
-echo    '</nav>';
+echo        '<li><a href="/matchup/ranking">Ranking</a></li>';
+echo    '</ul>';
 echo '</div>';
 ?>

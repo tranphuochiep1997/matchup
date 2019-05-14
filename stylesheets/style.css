@@ -40,7 +40,7 @@ html, body {
 .fixed-footer{
   bottom: 0;
 }
-nav a{
+/* nav a{
   color: #fff;
   text-decoration: none;
   padding: 7px 25px;
@@ -50,7 +50,122 @@ nav a{
 nav a:hover {
   color: #4caf50;
   text-decoration: none;
+} */
+
+.header-nav ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  position: absolute;
+  background: #333;
+  width: 100%;
 }
+/*Create a horizontal list with spacing*/
+.header-nav li {
+  display:inline-block;
+  float: left;
+  margin-right: 1px;
+}
+/*Style for menu links*/
+.header-nav li a {
+  display:block;
+  min-width:140px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  background: #2f3036;
+  text-decoration: none;
+}
+/*Hover state for top level links*/
+.header-nav li:hover a {
+  background: #19c589;
+}
+/*Style for dropdown links*/
+.header-nav li:hover ul a {
+  background: #f3f3f3;
+  color: #2f3036;
+  height: 40px;
+  line-height: 40px;
+}
+/*Hover state for dropdown links*/
+.header-nav li:hover ul a:hover {
+  background: #19c589;
+  color: #fff;
+}
+/*Hide dropdown links until they are needed*/
+.header-nav li ul {
+  display: none;
+}
+/*Make dropdown links vertical*/
+.header-nav ul li {
+  display: block;
+  float: right;
+}
+/*Prevent text wrapping*/
+.header-nav li ul li a {
+  width: auto;
+  min-width: 100px;
+  padding: 0 20px;
+}
+/*Display the dropdown on hover*/
+.header-nav ul li a:hover + .hidden, .hidden:hover {
+  display: block;
+}
+/*Style 'show menu' label button and hide it by default*/
+.header-nav .show-menu {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  color: #fff;
+  background: #19c589;
+  text-align: center;
+  padding: 10px 0;
+  display: none;
+}
+/*Hide checkbox*/
+.header-nav input[type=checkbox]{
+  display: none;
+}
+/*Show menu when invisible checkbox is checked*/
+.header-nav input[type=checkbox]:checked ~ #menu{
+  display: block;
+}
+/*Responsive Styles*/
+@media screen and (max-width : 760px){
+  /*Make dropdown links appear inline*/
+  .header-nav ul {
+      position: absolute;
+      display: none;
+  }
+  /*Create vertical spacing*/
+  .header-nav li {
+      margin-bottom: 1px;
+  }
+  /*Make all menu links full width*/
+  .header-nav ul li, li a {
+      width: 100%;
+  }
+  /*Display 'show menu' link*/
+  .header-nav .show-menu {
+      display:block;
+  }
+  .header-nav {
+    position: fixed;
+    width: 100%;
+  }
+  .table {
+    width: 72%;
+  }
+  .matches td, .matches th {
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+  .user {
+    display: none !important;
+  }
+}
+
 .container{
   width: 80%;
   margin: 0 auto;
@@ -84,6 +199,7 @@ nav a:hover {
   .container {
     width: 100%;
     padding: 60px 10px;
+    box-sizing: border-box;
   }
   nav a.home {
     display: inline-block;
