@@ -55,9 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
             appendNewMatch(matches[i]);
         }
 
-        if (matches.length === limit) {
-            document.getElementById('loadMore').classList.remove('hidden');
-        } else {
+        if (matches.length !== limit) {
             document.getElementById('loadMore').classList.add('hidden');
         }
     }

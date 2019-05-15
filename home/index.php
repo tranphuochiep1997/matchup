@@ -70,7 +70,7 @@
             <table class="matches">
                 <tbody id="recent-matches-body"></tbody>
             </table>
-            <button id='loadMore' class='btn hidden' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>
+            <button id='loadMore' class='btn' style='padding:3px; margin: 2px; float: right;' type='submit' value='Submit' >See more</button>
             <?php
                 // Include config file
                 // require_once "../dbConfig.php";
