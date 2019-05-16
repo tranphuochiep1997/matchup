@@ -23,7 +23,8 @@
 
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
                 $curtime = date('Y-m-d H:i:s');
-                $sql = "SELECT * FROM matches WHERE startTime > '$curtime' ORDER BY startTime ASC LIMIT 15";
+                // $sql = "SELECT * FROM matches m INNER JOIN detail d ON m.match_id = d.match_id WHERE startTime > '$curtime'  ORDER BY startTime ASC LIMIT 15";
+                $sql = "SELECT m.title, m.match_id, m.kind, m.startTime, m.scoreA, m.scoreB, m.status, m.loc, m.player_id, m.createdTime, count(d.player_id) as num FROM matches m LEFT OUTER JOIN detail d ON m.match_id = d.match_id WHERE startTime > CURRENT_TIMESTAMP group by match_id ORDER BY startTime ASC";
                 if($result = mysqli_query($link, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         echo "<table class='matches'>";
@@ -34,6 +35,7 @@
                                     echo "<th>Time</th>";
                                     echo "<th>Size</th>";
                                     echo "<th>Location</th>";
+                                    echo "<th>Number of players</th>";
                                     echo "<th>Action</th>";
                                 echo "</tr>";
                             echo "</thead>";
@@ -45,6 +47,7 @@
                                     echo "<td>" . $row['startTime'] . "</td>";
                                     echo "<td>" . $row['kind']      . "</td>";
                                     echo "<td>" . $row['loc']       . "</td>";
+                                    echo "<td>" . $row['num']."/".($row['kind']*2)."</td>";
                                     echo "<td>";
                                         echo "<a href='/matchup/match_detail/index.php?id=". $row['match_id'] ."' title='View Record' data-toggle='tooltip'>Detail</a>";
                                     echo "</td>";

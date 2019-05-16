@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $sql  = "INSERT INTO detail(team, player_id, match_id) VALUES('$team', '$session', '$match_id');";
     $sql .= "UPDATE matches as m INNER join (select count(*) as count, match_id from detail WHERE match_id = '$match_id') tt
-             ON m.match_id = tt.match_id SET m.status = 2 WHERE m.kind <= tt.count";
+             ON m.match_id = tt.match_id SET m.status = 2 WHERE m.kind*2 <= tt.count";
 
     if (mysqli_multi_query($link, $sql)) {
         header('Location: /matchup/match_detail/index.php?id='.$match_id.'&status=true');

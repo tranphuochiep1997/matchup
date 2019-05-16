@@ -195,7 +195,11 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <li>Match Code: <?php echo $match_id; ?></li>
                     <li>Start Time: <?php echo $startTime; ?></li>
                     <li>Type: <?php echo $kind; ?></li>
-                    <li>Status: <?php echo $status; ?></li>
+                    <?php 
+                        if($status == 0) echo '<li>Status: <span style="color:red">Not ready</span></li>';
+                        if($status == 1) echo '<li>Status: <span style="color:red">Ready</span></li>';
+                        if($status == 2) echo '<li>Status: <span style="color:red">Finished</span></li>';
+                    ?>
                     <li>Location: <?php echo $loc; ?></li>
                 </ul>
             </div>
