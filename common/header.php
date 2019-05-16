@@ -1,10 +1,9 @@
-<?php
-echo '<div class="header-nav">';
-echo     '<label for="show-menu" class="show-menu"><img src="../images/icon.png" style="width: 13px;"><span style="padding: 5px">Menu</span></label>';
-echo	'<input type="checkbox" id="show-menu" role="button">';
-echo    '<ul id="menu">';
-echo        '<li style="float:left"><a class="home" href="/matchup/home" >MATCH MAKING</a></li>';
-	        if (isset($_COOKIE["player_id"])){
+<div class="header-nav">
+<label for="show-menu" class="show-menu"><img src="../images/icon.png" style="width: 13px;"><span style="padding: 5px">Menu</span></label>
+<input type="checkbox" id="show-menu" role="button">
+<ul id="menu">
+<li style="float:left"><a class="home" href="/matchup/home" >MATCH MAKING</a></li>
+	 <?php       if (isset($_COOKIE["player_id"])){
 				echo '<li><a href = "/matchup/auth/logout.php">Logout</a></li>';
 				require_once "../dbConfig.php";
 				$player_id = $_COOKIE["player_id"];
@@ -21,11 +20,11 @@ echo        '<li style="float:left"><a class="home" href="/matchup/home" >MATCH 
 				echo '<li><a href = "/matchup/auth/login.php">Login</a></li>';
 			}
 			
-echo        '<li><a href="/matchup/form-create-match">Create Match</a></li>';
-			if(isset($_COOKIE["player_id"])) {
-				echo        '<li><a href="/matchup/my-matches/">My Matches</a></li>';
-			}
-echo        '<li><a href="/matchup/ranking">Ranking</a></li>';
-echo    '</ul>';
-echo '</div>';
-?>
+		echo '<li><a href="/matchup/form-create-match">Create Match</a></li>';
+		if (isset($_COOKIE["player_id"])){
+			echo '<li><a href="/matchup/my-matches/">My Matches</a></li>';
+		}
+		echo '<li><a href="/matchup/ranking">Ranking</a></li>';
+		?>
+    </ul>
+ </div>

@@ -1,4 +1,71 @@
-table  { border: 1px solid black; border-collapse: collapse; 
-  background-color: wheat; padding: 3px; }
-td, th { border: 1px solid gray; padding: 3px; }
-tbody > tr:nth-child(odd) { background-color: white; }
+  /*----------------- CSS FOR HOME PAFE ---------------------*/
+  table {
+    border-collapse:collapse;
+    border-bottom:1px solid gray;
+    font-family: Tahoma,Verdana,Segoe,sans-serif;
+    width:72%;
+  }
+  
+  .matches {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .matches td, .matches th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .column2 .matches td, 
+  .column2 .matches th {
+    border:none !important;
+    padding: 8px;
+    text-align: center;
+  }
+  .column2 .matches tr {
+    background-color: transparent !important;
+    border-bottom: 1px solid #ddd;
+  }
+  .column2 table {
+    border-bottom: none;
+  }
+  .matches tr:nth-child(even){background-color: #f2f2f2;}
+  .left-panel .matches tr {
+    background-color: white;
+  }
+  
+  .matches tr:hover {background-color: #ddd;}
+  
+  .matches th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  a:link,
+  a:visited,
+  a:active {
+    text-decoration: none;
+  }
+  a:hover {
+    color: #4CAF50;
+  }
+
+  .column2 a {
+    color: black;
+  }
+  .column2 a:hover {
+    color: red;
+  }
+
+  .column2 .line {
+    font-size: 10px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
